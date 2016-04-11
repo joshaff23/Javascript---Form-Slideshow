@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<head><title>Chapter 16 Assignment</title>
+	<link rel="stylesheet" type="text/css" href="Ch16css.css">
+	<script type="text/javascript">
+		function getDate() //function to display date to user
+		{
+			var today = new Date();
+			today.setDate(today.getDate());
+			alert("Today is: " + today);
+		}
+		function createCookie(form) //function to create cookies on the form
+		{
+			var when = new Date();
+			when.setTime(when.getTime() + 24 * 60 * 60 * 1000);
+			when.setMonth(when.getMonth() + 9);
+			
+			uname=document.forms[0].username.value;
+			uphone=document.forms[0].userphone.value;
+			ujob=document.forms[0].userjob.value;
+			document.cookie=escape("visitor")+"="+escape(uname)+";expires="+when.toGMTString();
+			document.cookie=escape("phone")+"="+escape(uphone)+";expires="+when.toGMTString();
+			document.cookie=escape("job")+"="+escape(ujob)+";expires="+when.toGMTString();
+			alert(document.cookie);
+		}
+	</script>
+</head>
+<body>
+<div class="center">
+<script type="text/javascript"> //script to load and run the slideshow
+	var i = 0; 
+	var image = new Array();   
+	image[0] = "download.jpg"; 
+	image[1] = "download2.jpg"; 
+	image[2] = "download3.jpg";  
+	image[3] = "download4.jpg"; 
+	var k = image.length-1;    
+	
+	var link= new Array();   
+	link[0] = "http://www.amazon.com/"; 
+	link[1] = "http://www.starwars.com"; 
+	link[2] = "http://www.espn.com";   
+	link[3] = "http://www.gq.com";
+		
+	function swapImage()
+	{ 
+		var img = document.getElementById("slide"); 
+		img.src= image[i]; 
+		var a = document.getElementById("link"); 
+		a.href= link[i]; 
+	
+		if (i < k ) 
+		{
+			i++;
+		}  
+		else  
+		{ 
+			i = 0; 
+		} 
+		setTimeout("swapImage()",5000); //setTimeout function
+	} 
+	function addLoadEvent(func) 
+	{ 
+		var oldonload = window.onload; 
+		if (typeof window.onload != 'function') 
+		{ 
+			window.onload = func; 
+		} 
+		else  
+		{ 
+			window.onload = function() 
+			{ 
+				if (oldonload) 
+				{ 
+					oldonload(); 
+				} 
+				func(); 
+			} 
+		} 
+	} 
+	addLoadEvent(function() 
+	{ 
+		swapImage(); 
+	});  //end of set of functions to create and run slideshow
+	</script> 
+	<table style="border:none;background-color:transparent;"> 
+		<tr> 
+			<td> 
+				<a name="link" id="link" href="http://www.comicbookresources.com/" target="_blank"><img name="slide" id="slide" alt 
+				="myimages" height="300px" width="420px" src="download.jpg"/></a> 
+			</td> 
+		</tr> 
+	</table> 
+	<br />
+	<h1>Webpage Generator</h1>
+	<br />
+	<!--Form with at least 3 types of controls -->
+	<form name="form1" id="form1" 
+		method="post"
+		onreset="return resetAll();">
+		Your Name
+		<input type="text" name="username"
+		id="username" size="12"/>
+		&nbsp;
+		Phone To Recieve Texts
+		<input type="text" name="userphone"
+		id="userphone" size="10"/>
+		&nbsp;
+		Employment Type
+		<input type="text" name="userjob" id="userjob" size="20"/>
+		<br />
+		<br />
+		<input type="button" value="Create cookie" onClick="createCookie(this.form);">
+		&nbsp;
+		<input type="button" value="Click for Date" onClick="return getDate();">
+		<br />
+		<h4>Interests You Have</h4>
+		<div class="firstgroup">
+			<input type="radio" name="interests"
+			value="https://www.comicbookresources.com https://www.imagecomics.com https:www.comicvine.com"/> Comics or Movie/Tv related 
+			<br />
+			<input type="radio" name="interests"
+			value="https://www.guns.com   https://www.ar15.com   https://www.bearingarms.com"/> Second Amendment Rights
+			<br />
+			<input type="radio" name="interests"
+			value="https://www.askmen.com  https://www.gq.com  https://www.realmenrealstyle.com"/> Fashion and Lifestyle
+			<br />
+			<input type="radio" name="interests"
+			value="https://www.amazon.com   https://www.ebay.com   https://www.fivefourclub.com"/> Shopping
+		</div>
+		<p></p>
+		<h4>Ways You Learn About Your Interests</h4>
+		<input type="radio" name="learn"
+		value="online"/> Online
+		<br />
+		<input type="radio" name="learn"
+		value="localstore"/> Local Store
+		<br />
+		<input type="radio" name="learn"
+		value="tv"/> TV
+		<br />
+		<input type="radio" name="learn"
+		value="socialmedia"/> Social Media
+		<br />
+		<input type="radio" name="learn"
+		value="friends"/> Friends
+		<p></p>
+		
+		Websites You May Be Interested In
+		<br />
+		<textarea name="results" value="display"
+		rows="8" cols="50" readonly="readonly">
+		Websites displayed below.
+		</textarea>
+		<br />
+		<input type="button" value="View suggested Websites" onclick="return checkForm();">
+		<input type="reset" value="Clear Form">
+	</form>
+</div>
+	<script type="text/javascript">
+		function resetAll()
+		{
+			if(confirm("Clear all fields?"))
+				return true;
+			else
+				return false;
+		}
+		
+		function checkForm() //data validation to ensure required fields are filled out
+		{
+			var form = document.getElementById("form1");
+			if(!form.username.value)
+			{
+				alert("Please type in your name");
+				document.forms[0].username.focus(); 
+				return false;
+			}
+			else if(!form.userphone.value)
+			{
+				alert("Please enter a valid phone number");
+				document.forms[0].userphone.focus();
+				return false;
+			}
+			else if(!form.userjob.value)
+			{
+				alert("Please enter your employement type");
+				document.forms[0].userjob.focus();
+				return false;
+			}
+			else 
+			{
+				analyzeInput(form);
+				return true;
+			}
+		}
+		
+		function analyzeInput(f) //checking form to ensure selections have been made
+		{
+			var str1 = "";
+			var str2 = "";
+			var str3 = "";
+			var str4 = "";
+		
+			if (f.interests[0].checked || f.interests[1].checked || f.interests[2].checked || f.interests[3].checked)
+			{
+				if (f.interests[0].checked)
+				{
+					if (f.learn[0].checked || f.learn[1].checked || f.learn[2].checked || f.learn[3].checked || f.learn[4].checked)
+					{
+						str1 = f.interests[0].value + "\n";
+					}
+					else 
+					{
+						alert("Please choose an option how you learn about your interests.")
+						return false;
+					}
+					f.results.value = str1;
+				}
+				if (f.interests[1].checked)
+				{
+					if (f.learn[0].checked || f.learn[1].checked || f.learn[2].checked || f.learn[3].checked || f.learn[4].checked)
+					{
+						str2 = f.interests[1].value + "\n" + str1 + "\n";	
+					}
+					else
+					{
+						alert("Please choose an option how you learn about your interests.")
+						return false;
+					}
+					f.results.value = str2;
+				}
+				if (f.interests[2].checked)
+				{
+					if (f.learn[0].checked || f.learn[1].checked || f.learn[2].checked || f.learn[3].checked || f.learn[4].checked)
+					{
+						str3 = f.interests[2].value + "\n" + str1 + "\n" + str2;	
+					}
+					else
+					{
+						alert("Please choose an option how you learn about your interests.")
+						return false;
+					}
+					f.results.value = str3;
+				}
+				if (f.interests[3].checked)
+				{
+					if (f.learn[0].checked || f.learn[1].checked || f.learn[2].checked || f.learn[3].checked || f.learn[4].checked)
+					{
+						str4 = f.interests[3].value + "\n" + str1 + "\n" + str2 + "\n" + str3;	
+					}
+					else
+					{
+						alert("Please choose an option how you learn about your interests.")
+						return false;
+					}
+					f.results.value = str4;
+				}
+			}
+			else
+			{
+				alert("No selections made.");
+				return false;
+			}
+		}
+	</script>
+</body>
+</html>
